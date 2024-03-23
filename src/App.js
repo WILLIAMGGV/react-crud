@@ -8,6 +8,8 @@ import Swal from 'sweetalert2'
 
 function App() {
 
+  const localh = "https://node-mysql-ete9.onrender.com";
+
   const [nombre,setNombre] = useState("");
   const [edad,setEdad] = useState();
   const [pais,setPais] = useState("");
@@ -19,8 +21,9 @@ function App() {
 
   const [empleadosList,setEmpleados] = useState([]);
 
+  console.log(localh+"/create");
   const add = ()=>{
-    Axios.post("https://node-mysql-ete9.onrender.com/create",{
+    Axios.post(localh+"/create",{
       nombre:nombre,
       edad:edad,
       pais:pais,
@@ -45,7 +48,7 @@ function App() {
   }
 
   const update = ()=>{
-    Axios.put("https://node-mysql-ete9.onrender.com/update",{
+    Axios.put(localh+"/update",{
       id:id,
       nombre:nombre,
       edad:edad,
@@ -82,7 +85,7 @@ function App() {
       confirmButtonText: 'Si, eliminarlo!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Axios.delete(`https://node-mysql-ete9.onrender.com/delete/${val.id}`).then((res)=>{
+        Axios.delete(localh+`/delete/${val.id}`).then((res)=>{
           getEmpleados();
           limpiarCampos();
           Swal.fire({
@@ -129,7 +132,7 @@ function App() {
   
 
   const getEmpleados = ()=>{
-    Axios.get("https://node-mysql-ete9.onrender.com/empleados").then((response)=>{
+    Axios.get(localh+"/empleados").then((response)=>{
       setEmpleados(response.data);
     });
   }
